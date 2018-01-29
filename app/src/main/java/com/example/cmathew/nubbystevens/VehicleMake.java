@@ -1,4 +1,4 @@
-package com.example.cmathew.nubbystevens.database;
+package com.example.cmathew.nubbystevens;
 
 public class VehicleMake {
     private String name;

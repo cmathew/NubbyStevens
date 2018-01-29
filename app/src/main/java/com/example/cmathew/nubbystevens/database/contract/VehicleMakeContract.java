@@ -9,6 +9,7 @@ public final class VehicleMakeContract {
     private VehicleMakeContract() {}
 
     public static class VehicleMakeEntry implements BaseColumns {
+        public static final String COLUMN_MAKE_ID = "make_id";
         public static final String COLUMN_NAME_MAKE_NAME = "name";
     }
 }

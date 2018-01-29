@@ -1,12 +1,20 @@
 package com.example.cmathew.nubbystevens.database.client;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.RawRes;
 
-import com.example.cmathew.nubbystevens.database.VehicleMake;
+import com.example.cmathew.nubbystevens.Vehicle;
+import com.example.cmathew.nubbystevens.VehicleMake;
+import com.example.cmathew.nubbystevens.csv.VehicleParser;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 public class VehicleMakeClient {
     private SQLiteDatabase database;

@@ -9,10 +9,14 @@ import com.example.cmathew.nubbystevens.database.client.VehicleMakeClient;
 
 public class DealershipHelper extends SQLiteOpenHelper {
     // DB Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
+
+    private Context context;
 
     public DealershipHelper(Context context) {
         super(context, context.getResources().getString(R.string.database_name), null, DATABASE_VERSION);
+
+        this.context = context;
     }
 
     // Create original state, then migrate to target
@@ -32,6 +36,11 @@ public class DealershipHelper extends SQLiteOpenHelper {
             VehicleMakeClient makeClient = new VehicleMakeClient(db);
             makeClient.createTable();
             makeClient.createNameIndex();
+        }
+
+        if (migrationNeeded(oldVersion, newVersion, 2)) {
+            VehicleMakeClient makeClient = new VehicleMakeClient(db);
+            makeClient.seedData(context, R.raw.initial_inventory);
         }
     }
 
