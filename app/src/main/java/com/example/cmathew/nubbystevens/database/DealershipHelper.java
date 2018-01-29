@@ -5,10 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.cmathew.nubbystevens.R;
-
-/**
- * Created by chris on 1/29/2018.
- */
+import com.example.cmathew.nubbystevens.database.client.VehicleMakeClient;
 
 public class DealershipHelper extends SQLiteOpenHelper {
     // DB Version
@@ -32,7 +29,9 @@ public class DealershipHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (migrationNeeded(oldVersion, newVersion, 1)) {
-            //UiCheckpointDbClient.CreateTable(db);
+            VehicleMakeClient makeClient = new VehicleMakeClient(db);
+            makeClient.createTable();
+            makeClient.createNameIndex();
         }
     }
 
