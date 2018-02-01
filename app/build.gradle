@@ -30,6 +30,37 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.v7SupportLibVersion}"
     implementation "com.android.support:design:${rootProject.ext.designSupportLibVersion}"
 
+    /*
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    */
+
+    // Lifecycle
+    implementation "android.arch.lifecycle:extensions:${rootProject.archLifecycleVersion}"
+    annotationProcessor "android.arch.lifecycle:compiler:${rootProject.archLifecycleVersion}"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:${rootProject.ext.archPersistanceVersion}"
+    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.archPersistanceVersion}"
+    // RxJava support for Room
+    implementation "android.arch.persistence.room:rxjava2:${rootProject.ext.archPersistanceVersion}"
+
+
+    /*
+    implementation "android.arch.persistence:db:${rootProject.ext.archPersistanceVersion}"
+    implementation "android.arch.persistence:db-framework:${rootProject.ext.archPersistanceVersion}"
+    */
+
+    // implementation 'com.squareup.sqlbrite3:sqlbrite:3.1.0'
+    implementation "io.reactivex.rxjava2:rxjava:2.1.9"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    implementation "com.google.dagger:dagger:${rootProject.ext.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVersion}"
+
     implementation 'org.apache.commons:commons-csv:1.5'
 
     implementation 'com.facebook.stetho:stetho:1.5.0'

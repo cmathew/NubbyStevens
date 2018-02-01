@@ -1,37 +1,38 @@
 package com.example.cmathew.nubbystevens.database.client;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.RawRes;
 
-import com.example.cmathew.nubbystevens.Vehicle;
-import com.example.cmathew.nubbystevens.VehicleMake;
+import com.example.cmathew.nubbystevens.entity.Vehicle;
 import com.example.cmathew.nubbystevens.csv.VehicleParser;
 import com.example.cmathew.nubbystevens.database.contract.VehicleContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleContract.VehicleEntry;
-import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 public class VehicleClient {
-    private SQLiteDatabase database;
+    private SupportSQLiteDatabase database;
 
-    public VehicleClient(SQLiteDatabase database) {
+    public VehicleClient(SupportSQLiteDatabase database) {
         this.database = database;
     }
 
     public long seedData(Context context, @RawRes int carCsv) throws IOException {
+        long recordsInserted = 0;
+
         InputStream csvStream = context.getResources().openRawResource(carCsv);
-        VehicleParser parser = new VehicleParser();
+        VehicleParser parser = new VehicleParser(database);
         List<Vehicle> vehicles = parser.parseCsvStream(csvStream);
         for (Vehicle vehicle : vehicles) {
-            insert(vehicle)
+            recordsInserted += insert(vehicle);
         }
         csvStream.close();
+
+        return recordsInserted;
     }
 
     public long insert(Vehicle vehicle) {

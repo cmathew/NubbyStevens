@@ -1,21 +1,17 @@
 package com.example.cmathew.nubbystevens.database.client;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.RawRes;
 
-import com.example.cmathew.nubbystevens.Vehicle;
-import com.example.cmathew.nubbystevens.VehicleMake;
-import com.example.cmathew.nubbystevens.csv.VehicleParser;
+import com.example.cmathew.nubbystevens.entity.VehicleMake;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
+import com.squareup.sqlbrite3.BriteDatabase;
+import com.squareup.sqlbrite3.QueryObservable;
 
 public class VehicleMakeClient {
-    private SQLiteDatabase database;
+    private BriteDatabase database;
 
-    public VehicleMakeClient(SQLiteDatabase database) {
+    public VehicleMakeClient(BriteDatabase database) {
         this.database = database;
     }
 
@@ -25,7 +21,7 @@ public class VehicleMakeClient {
                 VehicleMakeEntry._ID,
                 VehicleMakeEntry.COLUMN_NAME);
 
-        database.execSQL(createTableQuery);
+        database.execute(createTableQuery);
     }
 
     public void createNameIndex() {
@@ -34,19 +30,18 @@ public class VehicleMakeClient {
                 VehicleMakeContract.TABLE_NAME,
                 VehicleMakeEntry.COLUMN_NAME);
 
-        database.execSQL(createIndexQuery);
+        database.execute(createIndexQuery);
     }
 
     public long insert(VehicleMake make) {
         return database.insert(VehicleMakeContract.TABLE_NAME, null, buildContentValues(make));
     }
 
-    public Cursor find(String makeName) {
-        return database.query(
+    public QueryObservable find(String makeName) {
+        return database.createQuery(
                 VehicleMakeContract.TABLE_NAME,
-                null,
                 String.format("%s = ?", VehicleMakeEntry.COLUMN_NAME),
-                new String[] { makeName }, null, null, null);
+                makeName).mapToOne();
     }
 
     private ContentValues buildContentValues(VehicleMake make) {

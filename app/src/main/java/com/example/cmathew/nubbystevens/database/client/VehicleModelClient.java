@@ -1,20 +1,19 @@
 package com.example.cmathew.nubbystevens.database.client;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.example.cmathew.nubbystevens.VehicleMake;
-import com.example.cmathew.nubbystevens.VehicleModel;
+import com.example.cmathew.nubbystevens.entity.VehicleModel;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.VehicleModelEntry;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
 
 public class VehicleModelClient {
-    private SQLiteDatabase database;
+    private SupportSQLiteDatabase database;
 
-    public VehicleModelClient(SQLiteDatabase database) {
+    public VehicleModelClient(SupportSQLiteDatabase database) {
         this.database = database;
     }
 
