@@ -20,12 +20,17 @@ public class VehicleParser {
                 CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim()
         );
 
-        List<List<Boolean>> graphConnectionList = new ArrayList<>();
+        List<Vehicle> vehicleList = new ArrayList<>();
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
         for (CSVRecord csvRecord : csvRecords) {
-            List<Boolean> nodeConnectionList = new ArrayList<>();
+            String makeName = csvRecord.get("Make");
+            String modelName = csvRecord.get("Model");
+            String productionYearString = csvRecord.get("Year");
+            int productionYear = Integer.parseInt(productionYearString);
+
+
+
             for (String record : csvRecord) {
-                boolean value = Integer.parseInt(record) == 1;
                 nodeConnectionList.add(value);
             }
 

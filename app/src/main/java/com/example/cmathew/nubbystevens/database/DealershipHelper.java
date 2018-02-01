@@ -5,7 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.cmathew.nubbystevens.R;
+import com.example.cmathew.nubbystevens.database.client.VehicleClient;
 import com.example.cmathew.nubbystevens.database.client.VehicleMakeClient;
+
+import java.io.IOException;
 
 public class DealershipHelper extends SQLiteOpenHelper {
     // DB Version
@@ -39,8 +42,13 @@ public class DealershipHelper extends SQLiteOpenHelper {
         }
 
         if (migrationNeeded(oldVersion, newVersion, 2)) {
-            VehicleMakeClient makeClient = new VehicleMakeClient(db);
-            makeClient.seedData(context, R.raw.initial_inventory);
+            VehicleClient vehicleClient = new VehicleClient (db);
+            try {
+                vehicleClient.seedData(context, R.raw.initial_inventory);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                throw new RuntimeException("Migration Failed!");
+            }
         }
     }
 

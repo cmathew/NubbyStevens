@@ -10,15 +10,12 @@ import com.example.cmathew.nubbystevens.Vehicle;
 import com.example.cmathew.nubbystevens.VehicleMake;
 import com.example.cmathew.nubbystevens.csv.VehicleParser;
 import com.example.cmathew.nubbystevens.database.contract.VehicleContract;
+import com.example.cmathew.nubbystevens.database.contract.VehicleContract.VehicleEntry;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-/**
- * Created by chris on 1/29/2018.
- */
 
 public class VehicleClient {
     private SQLiteDatabase database;
@@ -32,7 +29,7 @@ public class VehicleClient {
         VehicleParser parser = new VehicleParser();
         List<Vehicle> vehicles = parser.parseCsvStream(csvStream);
         for (Vehicle vehicle : vehicles) {
-            insert()
+            insert(vehicle)
         }
         csvStream.close();
     }
@@ -43,7 +40,8 @@ public class VehicleClient {
 
     private ContentValues buildContentValues(Vehicle vehicle) {
         ContentValues cv = new ContentValues();
-        cv.put(VehicleContract.VehicleEntry.COLUMN_NAME_YEAR, vehicle.getYear());
+        cv.put(VehicleEntry.COLUMN_MODEL_ID, vehicle.getModel().getDatabaseId());
+        cv.put(VehicleEntry.COLUMN_PRODUCTION_YEAR, vehicle.getProductionYear());
         return cv;
     }
 }

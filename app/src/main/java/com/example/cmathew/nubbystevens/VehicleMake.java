@@ -1,6 +1,7 @@
 package com.example.cmathew.nubbystevens;
 
 public class VehicleMake {
+    private long databaseId;
     private String name;
 
     public VehicleMake(String name) {
@@ -9,5 +10,13 @@ public class VehicleMake {
 
     public String getName() {
         return name;
+    }
+
+    public long getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(long id) {
+        this.databaseId = id;
     }
 }
