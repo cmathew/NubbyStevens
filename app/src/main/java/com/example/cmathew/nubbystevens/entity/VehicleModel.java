@@ -1,16 +1,20 @@
 package com.example.cmathew.nubbystevens.entity;
 
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 
+import com.example.cmathew.nubbystevens.database.contract.VehicleContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.VehicleModelEntry;
 
 @Entity(
+    tableName = VehicleModelContract.TABLE_NAME,
     foreignKeys = {
         @ForeignKey(
                 entity = VehicleMake.class,
@@ -22,7 +26,7 @@ import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.V
     indices = {
         @Index(
                 value = {
-                    VehicleModelContract.VehicleModelEntry.COLUMN_NAME,
+                    VehicleModelEntry.COLUMN_NAME,
                     VehicleModelEntry.COLUMN_MAKE_ID
                 },
                 unique = true
@@ -30,17 +34,18 @@ import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.V
     }
 )
 public class VehicleModel {
+    @PrimaryKey
+    @ColumnInfo(name = VehicleModelEntry._ID)
     private long databaseId;
-    private VehicleMake make;
+
+    @ColumnInfo(name = VehicleModelEntry.COLUMN_MAKE_ID)
+    private long makeId;
+
+    @ColumnInfo(name = VehicleModelEntry.COLUMN_NAME)
     private String name;
 
-    public VehicleModel(String name, VehicleMake make) {
-        this.name = name;
-        this.make = make;
-    }
-
-    public VehicleMake getMake() {
-        return make;
+    public long getMakeId() {
+        return makeId;
     }
 
     public String getName() {
@@ -53,5 +58,13 @@ public class VehicleModel {
 
     public void setDatabaseId(long id) {
         this.databaseId = id;
+    }
+
+    public void setMakeId(long makeId) {
+        this.makeId = makeId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

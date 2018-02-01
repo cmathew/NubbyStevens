@@ -9,6 +9,7 @@ import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
 
 @Entity(
+        tableName = VehicleMakeContract.TABLE_NAME,
         indices = {
                 @Index(
                         value = {VehicleMakeEntry.COLUMN_NAME},

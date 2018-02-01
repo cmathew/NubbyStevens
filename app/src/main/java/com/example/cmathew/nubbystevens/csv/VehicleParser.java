@@ -4,8 +4,6 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 
 import com.example.cmathew.nubbystevens.entity.Vehicle;
 import com.example.cmathew.nubbystevens.entity.VehicleMake;
-import com.example.cmathew.nubbystevens.database.client.VehicleMakeClient;
-import com.example.cmathew.nubbystevens.database.client.VehicleModelClient;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -33,8 +31,8 @@ public class VehicleParser {
                 CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim()
         );
 
-        VehicleMakeClient makeClient = new VehicleMakeClient(database);
-        VehicleModelClient modelClient = new VehicleModelClient(database);
+//        VehicleMakeClient makeClient = new VehicleMakeClient(database);
+//        VehicleModelClient modelClient = new VehicleModelClient(database);
 
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
         for (CSVRecord csvRecord : csvRecords) {
@@ -43,22 +41,8 @@ public class VehicleParser {
             String productionYearString = csvRecord.get("Year");
             int productionYear = Integer.parseInt(productionYearString);
 
-            VehicleMake make = makeClient.find(makeName);
-            for (String record : csvRecord) {
-                nodeConnectionList.add(value);
-            }
-
-            graphConnectionList.add(nodeConnectionList);
         }
 
-        boolean[][] graphArray = new boolean[graphConnectionList.size()][graphConnectionList.size()];
-        for (int i = 0; i < graphConnectionList.size(); i++) {
-            List<Boolean> nodeConnectionList = graphConnectionList.get(i);
-            for (int j = 0; j < nodeConnectionList.size(); j++) {
-                graphArray[i][j] = nodeConnectionList.get(j);
-            }
-        }
-
-        return graphArray;
+        return vehicleList;
     }
 }
