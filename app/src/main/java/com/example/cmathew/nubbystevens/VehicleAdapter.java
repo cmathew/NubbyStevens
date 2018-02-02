@@ -9,6 +9,13 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.example.cmathew.nubbystevens.database.contract.VehicleContract;
+import com.example.cmathew.nubbystevens.database.contract.VehicleContract.VehicleEntry;
+import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
+import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
+import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract;
+import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.VehicleModelEntry;
+
 import com.example.cmathew.nubbystevens.entity.Vehicle;
 
 import java.util.List;
@@ -27,9 +34,18 @@ public class VehicleAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView makeText = view.findViewById(R.id.vehicle_make_description);
-        TextView modelText = view.findViewById(R.id.vehicle_model_description);
+        TextView makeModelText = view.findViewById(R.id.vehicle_make_model_description);
         TextView yearText = view.findViewById(R.id.vehicle_year_description);
+
+        String makeDescColumnName = String.format("%s_%s", VehicleMakeContract.TABLE_NAME, VehicleMakeEntry.COLUMN_NAME);
+        String makeDesc = cursor.getString(cursor.getColumnIndexOrThrow(makeDescColumnName));
+        String modelDescColumnName = String.format("%s_%s", VehicleModelContract.TABLE_NAME, VehicleModelEntry.COLUMN_NAME);
+        String modelDesc = cursor.getString(cursor.getColumnIndexOrThrow(modelDescColumnName));
+        int productionYear = cursor.getInt(cursor.getColumnIndexOrThrow(VehicleEntry.COLUMN_PRODUCTION_YEAR));
+
+        String makeModelDesc = String.format("%s %s", makeDesc, modelDesc);
+        makeModelText.setText(makeModelDesc);
+        yearText.setText(String.valueOf(productionYear));
 
         /*
         NotificationResponder nr = new NotificationResponder();
