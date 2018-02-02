@@ -2,8 +2,10 @@ package com.example.cmathew.nubbystevens.csv;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 
+import com.example.cmathew.nubbystevens.database.DealershipDatabase;
 import com.example.cmathew.nubbystevens.entity.Vehicle;
 import com.example.cmathew.nubbystevens.entity.VehicleMake;
+import com.example.cmathew.nubbystevens.entity.VehicleModel;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -16,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleParser {
-    private SupportSQLiteDatabase database;
+    private DealershipDatabase database;
 
-    public VehicleParser(SupportSQLiteDatabase database) {
+    public VehicleParser(DealershipDatabase database) {
         this.database = database;
     }
 
@@ -31,9 +33,6 @@ public class VehicleParser {
                 CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim()
         );
 
-//        VehicleMakeClient makeClient = new VehicleMakeClient(database);
-//        VehicleModelClient modelClient = new VehicleModelClient(database);
-
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
         for (CSVRecord csvRecord : csvRecords) {
             String makeName = csvRecord.get("Make");
@@ -41,6 +40,22 @@ public class VehicleParser {
             String productionYearString = csvRecord.get("Year");
             int productionYear = Integer.parseInt(productionYearString);
 
+            VehicleMake make = database.makeDao().findByName(makeName);
+            if (make == null) {
+                make = new VehicleMake(makeName);
+                long makeId = database.makeDao().insertMake(make);
+                make.setDatabaseId(makeId);
+            }
+
+            VehicleModel model = database.modelDao().findBy(modelName, make.getDatabaseId());
+            if (model == null) {
+                model = new VehicleModel(modelName, make.getDatabaseId());
+                long modelId = database.modelDao().insertModel(model);
+                model.setDatabaseId(modelId);
+            }
+
+            Vehicle vehicle = new Vehicle(productionYear, model.getDatabaseId());
+            vehicleList.add(vehicle);
         }
 
         return vehicleList;

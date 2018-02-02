@@ -18,12 +18,16 @@ import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.Ve
         }
 )
 public class VehicleMake {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = VehicleMakeEntry._ID)
     private long databaseId;
 
     @ColumnInfo(name = VehicleMakeEntry.COLUMN_NAME)
     private String name;
+
+    public VehicleMake(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;

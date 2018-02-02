@@ -8,12 +8,11 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.example.cmathew.nubbystevens.database.contract.VehicleContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleContract.VehicleEntry;
-import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
-import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.VehicleModelEntry;
 
 @Entity(
         tableName = VehicleContract.TABLE_NAME,
+        indices = { @Index(value = VehicleEntry.COLUMN_MODEL_ID) },
         foreignKeys = {
                 @ForeignKey(
                         entity = VehicleModel.class,
@@ -24,7 +23,7 @@ import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.V
         }
 )
 public class Vehicle {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = VehicleEntry._ID)
     private long databaseId;
 
@@ -33,6 +32,11 @@ public class Vehicle {
 
     @ColumnInfo(name = VehicleEntry.COLUMN_MODEL_ID)
     public long modelId;
+
+    public Vehicle(int productionYear, long modelId) {
+        this.productionYear = productionYear;
+        this.modelId = modelId;
+    }
 
     public long getDatabaseId() {
         return databaseId;

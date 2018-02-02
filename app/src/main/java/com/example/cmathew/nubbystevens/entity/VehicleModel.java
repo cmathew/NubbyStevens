@@ -7,8 +7,6 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.example.cmathew.nubbystevens.database.contract.VehicleContract;
-import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.VehicleModelEntry;
@@ -25,16 +23,16 @@ import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.V
     },
     indices = {
         @Index(
-                value = {
-                    VehicleModelEntry.COLUMN_NAME,
-                    VehicleModelEntry.COLUMN_MAKE_ID
-                },
-                unique = true
-        )
+            value = {
+                VehicleModelEntry.COLUMN_NAME,
+                VehicleModelEntry.COLUMN_MAKE_ID
+            },
+            unique = true
+        ), @Index(value = VehicleModelEntry.COLUMN_MAKE_ID),
     }
 )
 public class VehicleModel {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = VehicleModelEntry._ID)
     private long databaseId;
 
@@ -43,6 +41,11 @@ public class VehicleModel {
 
     @ColumnInfo(name = VehicleModelEntry.COLUMN_NAME)
     private String name;
+
+    public VehicleModel(String name, long makeId) {
+        this.name = name;
+        this.makeId = makeId;
+    }
 
     public long getMakeId() {
         return makeId;
