@@ -1,6 +1,7 @@
 package com.example.cmathew.nubbystevens;
 
 import android.app.Application;
+import android.support.v4.app.Fragment;
 
 import com.example.cmathew.nubbystevens.csv.VehicleParser;
 import com.example.cmathew.nubbystevens.database.DealershipDatabase;
@@ -15,9 +16,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class DealershipApplication extends Application {
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
+public class DealershipApplication extends Application implements HasSupportFragmentInjector {
     @Inject
     DealershipDatabase database;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     private ApplicationComponent applicationComponent;
 
@@ -31,26 +39,14 @@ public class DealershipApplication extends Application {
                 .application(this)
                 .build();
         applicationComponent.inject(this);
-
-        try {
-            seedData();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException("Migration Failed!");
-        }
     }
 
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 
-    private void seedData() throws IOException {
-        InputStream csvStream = getResources().openRawResource(R.raw.initial_inventory);
-        VehicleParser parser = new VehicleParser(database);
-        List<Vehicle> vehicles = parser.parseCsvStream(csvStream);
-        for (Vehicle vehicle : vehicles) {
-            database.vehicleDao().insertVehicle(vehicle);
-        }
-        csvStream.close();
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentInjector;
     }
 }

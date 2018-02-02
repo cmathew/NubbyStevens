@@ -17,6 +17,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Maybe;
+
 public class VehicleParser {
     private DealershipDatabase database;
 

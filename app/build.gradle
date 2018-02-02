@@ -38,6 +38,8 @@ dependencies {
 
     // Lifecycle
     implementation "android.arch.lifecycle:extensions:${rootProject.archLifecycleVersion}"
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
     annotationProcessor "android.arch.lifecycle:compiler:${rootProject.archLifecycleVersion}"
 
     // Room
@@ -45,7 +47,6 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.archPersistanceVersion}"
     // RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:${rootProject.ext.archPersistanceVersion}"
-
 
     /*
     implementation "android.arch.persistence:db:${rootProject.ext.archPersistanceVersion}"

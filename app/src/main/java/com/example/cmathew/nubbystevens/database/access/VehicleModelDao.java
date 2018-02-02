@@ -6,6 +6,8 @@ import android.arch.persistence.room.Query;
 
 import com.example.cmathew.nubbystevens.entity.VehicleModel;
 
+import io.reactivex.Maybe;
+
 @Dao
 public interface VehicleModelDao {
     @Query("SELECT * FROM vehicle_model " +
