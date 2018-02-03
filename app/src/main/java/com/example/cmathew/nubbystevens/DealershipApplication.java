@@ -1,5 +1,6 @@
 package com.example.cmathew.nubbystevens;
 
+import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
@@ -18,14 +19,18 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class DealershipApplication extends Application implements HasSupportFragmentInjector {
+public class DealershipApplication extends Application implements HasSupportFragmentInjector, HasActivityInjector {
     @Inject
     DealershipDatabase database;
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentInjector;
+
+    @Inject
+    DispatchingAndroidInjector<Activity> activityInjector;
 
     private ApplicationComponent applicationComponent;
 
@@ -48,5 +53,10 @@ public class DealershipApplication extends Application implements HasSupportFrag
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentInjector;
+    }
+
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return activityInjector;
     }
 }

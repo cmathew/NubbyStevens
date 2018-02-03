@@ -16,15 +16,8 @@
         android:layout_marginRight="16dp"
         android:name="com.example.cmathew.nubbystevens.InventoryFragment"/>
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include android:id="@+id/toolbar" layout="@layout/toolbar" />
-    </android.support.design.widget.AppBarLayout>
-
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_vehicle_button"
         android:src="@drawable/ic_car"
         app:fabSize="normal"
         android:layout_margin="16dp"
