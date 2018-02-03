@@ -8,13 +8,24 @@
     android:orientation="vertical"
     tools:context="com.example.cmathew.nubbystevens.MainActivity">
 
-    <fragment
-        android:id="@+id/inventory_fragment"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:name="com.example.cmathew.nubbystevens.InventoryFragment"/>
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_vehicle_button"
@@ -23,7 +34,11 @@
         android:layout_margin="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/inventory_fragment"
+        app:layout_anchor="@id/content_container"
         app:layout_anchorGravity="bottom|right" />
 
 </android.support.design.widget.CoordinatorLayout>
+
+
+
+

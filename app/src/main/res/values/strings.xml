@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">NubbyStevens</string>
 
-    <string name="activity_title_main">Inventory</string>
+    <string name="title_inventory">Inventory</string>
+    <string name="title_add_inventory">Add Inventory</string>
+
+    <string name="register_vehicle_make_name_hint">Make (e.g. Honda)</string>
+    <string name="register_vehicle_model_name_hint">Model (e.g. Civic)</string>
+    <string name="register_vehicle_production_year_hint">Production year</string>
 </resources>

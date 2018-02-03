@@ -11,7 +11,7 @@
         android:theme="@style/DealershipTheme"
         android:name=".DealershipApplication">
         <activity android:name=".MainActivity"
-            android:label="@string/activity_title_main">
+            android:label="@string/title_inventory">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

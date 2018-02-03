@@ -1,11 +1,18 @@
 package com.example.cmathew.nubbystevens;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ActionBarContainer;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.cmathew.nubbystevens.database.DealershipDatabase;
 
@@ -24,12 +31,45 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupToolbar();
+
+        addInventoryListFragment();
+
         FloatingActionButton fab = findViewById(R.id.add_vehicle_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                addVehicleEntryFragment();
+                //registerVehicleFragment.show(getSupportFragmentManager(), "register_vehicle");
                 //database.vehicleDao().insertVehicle();
             }
         });
+    }
+
+    private void addInventoryListFragment() {
+        InventoryFragment inventoryFragment = InventoryFragment.newInstance();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.content_container, inventoryFragment, "inventory_list")
+                .commit();
+    }
+
+    private void addVehicleEntryFragment() {
+        RegisterVehicleFragment registerVehicleFragment = RegisterVehicleFragment.newInstance();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .add(R.id.content_container, registerVehicleFragment, "register_vehicle")
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void setupToolbar() {
+        AppBarLayout toolbarContainer = findViewById(R.id.toolbar_container);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.toolbar, toolbarContainer, true);
+        Toolbar toolbar = (Toolbar) root.getChildAt(0);
+        toolbar.setTitle(R.string.title_inventory);
+        setSupportActionBar(toolbar);
     }
 }

@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/content_margin"
+    android:background="?android:attr/windowBackground"
+    tools:context="com.example.cmathew.nubbystevens.RegisterVehicleFragment">
+
+    <EditText
+        android:id="@+id/vehicle_make_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/register_vehicle_make_name_hint" />
+
+    <EditText
+        android:id="@+id/vehicle_model_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/register_vehicle_model_name_hint" />
+
+    <EditText
+        android:id="@+id/vehicle_year_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/register_vehicle_production_year_hint" />
+
+</LinearLayout>
