@@ -17,44 +17,56 @@ import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract;
 import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.VehicleModelEntry;
 
 import com.example.cmathew.nubbystevens.entity.Vehicle;
+import com.example.cmathew.nubbystevens.entity.VehicleMinimal;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class VehicleAdapter extends CursorAdapter {
-    public VehicleAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
+public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHolder> {
+    private List<VehicleMinimal> cars;
+
+    public VehicleAdapter() {
+        this.cars = new ArrayList<>();
+    }
+
+    public void setCars(List<VehicleMinimal> cars) {
+        this.cars = cars;
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View row = layoutInflater.inflate(R.layout.fragment_inventory, parent, false);
-        return row;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_inventory, parent, false);
+
+        return new VehicleAdapter.ViewHolder(row);
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        TextView makeModelText = view.findViewById(R.id.vehicle_make_model_description);
-        TextView yearText = view.findViewById(R.id.vehicle_year_description);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        VehicleMinimal car = cars.get(position);
 
-        String makeDescColumnName = String.format("%s_%s", VehicleMakeContract.TABLE_NAME, VehicleMakeEntry.COLUMN_NAME);
-        String makeDesc = cursor.getString(cursor.getColumnIndexOrThrow(makeDescColumnName));
-        String modelDescColumnName = String.format("%s_%s", VehicleModelContract.TABLE_NAME, VehicleModelEntry.COLUMN_NAME);
-        String modelDesc = cursor.getString(cursor.getColumnIndexOrThrow(modelDescColumnName));
-        int productionYear = cursor.getInt(cursor.getColumnIndexOrThrow(VehicleEntry.COLUMN_PRODUCTION_YEAR));
-
+        String makeDesc = car.getMakeName();
+        String modelDesc = car.getModelName();
         String makeModelDesc = String.format("%s %s", makeDesc, modelDesc);
-        makeModelText.setText(makeModelDesc);
-        yearText.setText(String.valueOf(productionYear));
+        int productionYear = car.getProductionYear();
 
-        /*
-        NotificationResponder nr = new NotificationResponder();
-        Notification note = nr.call(cursor);
+        holder.makeModelText.setText(makeModelDesc);
+        holder.yearText.setText(String.valueOf(productionYear));
+    }
 
-        Vehicle car = cars.get(position);
-        holder.makeText.setText(String.valueOf(car.get));
-        holder.modelText.setText(String.valueOf(val));
-        holder.yearText.setText(String.valueOf(val));
-        */
+    @Override
+    public int getItemCount() {
+        return cars.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView makeModelText;
+        TextView yearText;
+
+        public ViewHolder(View view) {
+            super(view);
+
+            this.makeModelText = view.findViewById(R.id.vehicle_make_model_description);
+            this.yearText = view.findViewById(R.id.vehicle_year_description);
+        }
     }
 }
