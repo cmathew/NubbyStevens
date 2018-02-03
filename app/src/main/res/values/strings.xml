@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NubbyStevens</string>
+
+    <string name="activity_title_main">Inventory</string>
 </resources>
