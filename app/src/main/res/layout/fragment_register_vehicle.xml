@@ -3,26 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="@dimen/content_margin"
     android:background="?android:attr/windowBackground"
     tools:context="com.example.cmathew.nubbystevens.RegisterVehicleFragment">
 
-    <EditText
-        android:id="@+id/vehicle_make_entry"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/register_vehicle_make_name_hint" />
+        android:layout_height="wrap_content">
+        <include layout="@layout/toolbar" android:id="@+id/toolbar_register_vehicle"/>
+    </android.support.design.widget.AppBarLayout>
 
-    <EditText
-        android:id="@+id/vehicle_model_entry"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/register_vehicle_model_name_hint" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/content_margin">
+        <EditText
+            android:id="@+id/vehicle_make_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_vehicle_make_name_hint" />
 
-    <EditText
-        android:id="@+id/vehicle_year_entry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/register_vehicle_production_year_hint" />
+        <EditText
+            android:id="@+id/vehicle_model_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_vehicle_model_name_hint" />
+
+        <EditText
+            android:id="@+id/vehicle_year_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_vehicle_production_year_hint" />
+    </LinearLayout>
 
 </LinearLayout>

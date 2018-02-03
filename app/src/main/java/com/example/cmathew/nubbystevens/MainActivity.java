@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.ActionBarContainer;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
     @Inject
     DealershipDatabase database;
 
@@ -40,10 +41,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addVehicleEntryFragment();
-                //registerVehicleFragment.show(getSupportFragmentManager(), "register_vehicle");
-                //database.vehicleDao().insertVehicle();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        getSupportFragmentManager().removeOnBackStackChangedListener(this);
     }
 
     private void addInventoryListFragment() {
@@ -59,17 +72,19 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(R.id.content_container, registerVehicleFragment, "register_vehicle")
+                .add(android.R.id.content, registerVehicleFragment, "register_vehicle")
                 .addToBackStack(null)
                 .commit();
     }
 
     private void setupToolbar() {
-        AppBarLayout toolbarContainer = findViewById(R.id.toolbar_container);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.toolbar, toolbarContainer, true);
-        Toolbar toolbar = (Toolbar) root.getChildAt(0);
+        Toolbar toolbar = findViewById(R.id.toolbar_main_activity);
         toolbar.setTitle(R.string.title_inventory);
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        Log.v("Nubby", "Back stack changed");
     }
 }

@@ -1,12 +1,13 @@
 package com.example.cmathew.nubbystevens;
 
-
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,7 +31,6 @@ public class RegisterVehicleFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -40,19 +40,25 @@ public class RegisterVehicleFragment extends DialogFragment {
         setHasOptionsMenu(true);
     }
 
+    private void setupToolbar(ActionBar actionBar) {
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_close);
+        actionBar.setTitle(R.string.title_add_inventory);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_vehicle, container, false);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar_register_vehicle);
+        activity.setSupportActionBar(toolbar);
+
         ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_close);
-            actionBar.setTitle(R.string.title_add_inventory);
-        }
+        setupToolbar(actionBar);
 
         return view;
     }

@@ -5,7 +5,9 @@
     android:paddingTop="@dimen/list_item_padding"
     android:paddingBottom="@dimen/list_item_padding"
     android:baselineAligned="true"
-    android:gravity="center_vertical"
+    android:clickable="true"
+    android:focusable="true"
+    style="@style/VehicleInventoryItem"
     android:orientation="horizontal">
 
     <TextView

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -73,6 +74,8 @@ public class InventoryFragment extends Fragment {
         this.vehicleList = listView.findViewById(R.id.inventory_list);
         LinearLayoutManager linearMgr = new LinearLayoutManager(getContext());
         vehicleList.setLayoutManager(linearMgr);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        vehicleList.addItemDecoration(dividerItemDecoration);
         vehicleList.setAdapter(vehicleAdapter);
 
         return listView;
