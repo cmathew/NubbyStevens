@@ -4,6 +4,7 @@ import android.arch.persistence.room.Insert;
 
 import com.example.cmathew.nubbystevens.entity.Vehicle;
 import com.example.cmathew.nubbystevens.entity.VehicleMake;
+import com.example.cmathew.nubbystevens.entity.VehicleMinimal;
 import com.example.cmathew.nubbystevens.entity.VehicleModel;
 
 public class VehicleCreator {
@@ -37,6 +38,10 @@ public class VehicleCreator {
         model.setDatabaseId(modelId);
 
         return model;
+    }
+
+    public long insertVehicle(VehicleMinimal minimal) {
+        return insertVehicle(minimal.getMakeName(), minimal.getModelName(), minimal.getProductionYear());
     }
 
     public long insertVehicle(String makeName, String modelName, int productionYear) {

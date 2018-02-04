@@ -1,22 +1,15 @@
 package com.example.cmathew.nubbystevens;
 
-import android.content.Context;
-import android.database.Cursor;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.example.cmathew.nubbystevens.database.contract.VehicleContract;
-import com.example.cmathew.nubbystevens.database.contract.VehicleContract.VehicleEntry;
-import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract;
-import com.example.cmathew.nubbystevens.database.contract.VehicleMakeContract.VehicleMakeEntry;
-import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract;
-import com.example.cmathew.nubbystevens.database.contract.VehicleModelContract.VehicleModelEntry;
-
-import com.example.cmathew.nubbystevens.entity.Vehicle;
 import com.example.cmathew.nubbystevens.entity.VehicleMinimal;
 
 import java.util.ArrayList;
@@ -24,8 +17,10 @@ import java.util.List;
 
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHolder> {
     private List<VehicleMinimal> cars;
+    private FragmentActivity context;
 
-    public VehicleAdapter() {
+    public VehicleAdapter(FragmentActivity context) {
+        this.context = context;
         this.cars = new ArrayList<>();
     }
 
@@ -55,6 +50,8 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHold
 
         holder.makeModelText.setText(makeModelDesc);
         holder.yearText.setText(String.valueOf(productionYear));
+
+        holder.itemView.setOnClickListener(new VehicleClickListener(context, car.getId()));
     }
 
     @Override
@@ -73,4 +70,26 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHold
             this.yearText = view.findViewById(R.id.vehicle_year_description);
         }
     }
+
+    static class VehicleClickListener implements View.OnClickListener {
+        private FragmentActivity context;
+        private long vehicleId;
+
+        public VehicleClickListener(FragmentActivity context, long vehicleId) {
+            this.context = context;
+            this.vehicleId = vehicleId;
+        }
+
+        @Override
+        public void onClick(View view) {
+            EditVehicleFragment registerVehicleFragment = EditVehicleFragment.newInstance(vehicleId);
+            FragmentManager fragmentManager = context.getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .add(android.R.id.content, registerVehicleFragment, "edit_vehicle")
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
+
 }

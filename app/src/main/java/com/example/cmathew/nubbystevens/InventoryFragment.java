@@ -1,5 +1,6 @@
 package com.example.cmathew.nubbystevens;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -66,7 +67,7 @@ public class InventoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.vehicleAdapter = new VehicleAdapter();
+        this.vehicleAdapter = new VehicleAdapter(getActivity());
     }
 
     @Override
