@@ -27,6 +27,7 @@ ext {
     v7SupportLibVersion = '26.1.0'
     designSupportLibVersion = '26.1.0'
     daggerVersion = '2.14.1'
+    butterKnifeVersion = '8.8.1'
     archLifecycleVersion = "1.1.0"
     //archPersistanceVersion = '1.1.0-alpha1'
     archPersistanceVersion = '1.0.0'

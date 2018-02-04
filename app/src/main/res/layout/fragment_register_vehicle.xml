@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,54 +15,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/content_margin">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:paddingLeft="@dimen/content_margin_large"
             android:paddingRight="@dimen/content_margin_large"
             android:layout_margin="@dimen/content_margin">
 
-            <EditText
-                android:id="@+id/vehicle_make_entry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@id/vehicle_model_entry"
-                android:hint="@string/register_vehicle_make_name_hint" />
+            <include layout="@layout/form_vehicle_input"/>
 
-            <EditText
-                android:id="@+id/vehicle_model_entry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@id/vehicle_year_entry"
-                android:hint="@string/register_vehicle_model_name_hint" />
-
-            <EditText
-                android:id="@+id/vehicle_year_entry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                android:imeOptions="actionDone"
-                android:imeActionId="100"
-                android:imeActionLabel="Register"
-                android:hint="@string/register_vehicle_production_year_hint" />
-        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
         <Button
             android:id="@+id/register_vehicle_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/content_margin"
             android:layout_marginRight="@dimen/content_margin"
-            android:text="Register Vehicle"/>
+            android:layout_alignParentBottom="true"
+            android:text="@string/register_vehicle_request"/>
     </RelativeLayout>
-
 </LinearLayout>

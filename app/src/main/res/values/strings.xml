@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">NubbyStevens</string>
+    <string name="app_name">Dealership Manager</string>
+
+    <string name="database_name">dealership</string>
 
     <string name="title_inventory">Inventory</string>
     <string name="title_add_inventory">Add Inventory</string>
@@ -7,4 +9,7 @@
     <string name="register_vehicle_make_name_hint">Make (e.g. Honda)</string>
     <string name="register_vehicle_model_name_hint">Model (e.g. Civic)</string>
     <string name="register_vehicle_production_year_hint">Production year</string>
+    <string name="register_vehicle_request">Register Vehicle</string>
+
+    <string name="error_required_field">This field is required.</string>
 </resources>
