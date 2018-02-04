@@ -1,6 +1,7 @@
 package com.example.cmathew.nubbystevens.di.binding;
 
 import com.example.cmathew.nubbystevens.InventoryFragment;
+import com.example.cmathew.nubbystevens.RegisterVehicleFragment;
 import com.example.cmathew.nubbystevens.di.scope.FragmentScope;
 
 import dagger.Module;
@@ -11,4 +12,8 @@ public abstract class FragmentBindingModule {
     @FragmentScope
     @ContributesAndroidInjector
     abstract InventoryFragment inventoryFragment();
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract RegisterVehicleFragment registerVehicleFragment();
 }

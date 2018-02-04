@@ -3,6 +3,7 @@ package com.example.cmathew.nubbystevens.csv;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 
 import com.example.cmathew.nubbystevens.database.DealershipDatabase;
+import com.example.cmathew.nubbystevens.database.VehicleCreator;
 import com.example.cmathew.nubbystevens.entity.Vehicle;
 import com.example.cmathew.nubbystevens.entity.VehicleMake;
 import com.example.cmathew.nubbystevens.entity.VehicleModel;
@@ -42,19 +43,9 @@ public class VehicleParser {
             String productionYearString = csvRecord.get("Year");
             int productionYear = Integer.parseInt(productionYearString);
 
-            VehicleMake make = database.makeDao().findByName(makeName);
-            if (make == null) {
-                make = new VehicleMake(makeName);
-                long makeId = database.makeDao().insertMake(make);
-                make.setDatabaseId(makeId);
-            }
-
-            VehicleModel model = database.modelDao().findBy(modelName, make.getDatabaseId());
-            if (model == null) {
-                model = new VehicleModel(modelName, make.getDatabaseId());
-                long modelId = database.modelDao().insertModel(model);
-                model.setDatabaseId(modelId);
-            }
+            VehicleCreator creator = new VehicleCreator(database);
+            VehicleMake make = creator.findOrCreateMake(makeName);
+            VehicleModel model = creator.findOrCreateModel(modelName, make);
 
             Vehicle vehicle = new Vehicle(productionYear, model.getDatabaseId());
             vehicleList.add(vehicle);
