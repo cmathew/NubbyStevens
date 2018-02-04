@@ -2,6 +2,7 @@ package com.example.cmathew.nubbystevens;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -70,11 +71,11 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     private void addVehicleEntryFragment() {
         RegisterVehicleFragment registerVehicleFragment = RegisterVehicleFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
+        FragmentTransaction transaction = fragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(android.R.id.content, registerVehicleFragment, "register_vehicle")
-                .addToBackStack(null)
-                .commit();
+                .addToBackStack(null);
+        registerVehicleFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DealershipTheme);
+        registerVehicleFragment.show(transaction, "register_vehicle");
     }
 
     private void setupToolbar() {

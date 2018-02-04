@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alliance Hangar Manager</string>
+
+    <string name="title_inventory">Rebel Alliance Hangar</string>
+
+    <string name="database_name">rebel_hangar</string>
+</resources>

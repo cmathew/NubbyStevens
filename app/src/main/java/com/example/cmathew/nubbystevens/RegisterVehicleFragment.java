@@ -107,11 +107,16 @@ public class RegisterVehicleFragment extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
 
+        VehicleEntryFragment entryFragment = getVehicleEntryFragment();
+        if (entryFragment != null) {
+            getFragmentManager().beginTransaction().remove(entryFragment).commit();
+        }
+
         unbinder.unbind();
     }
 
     private VehicleEntryFragment getVehicleEntryFragment() {
-        return (VehicleEntryFragment) getChildFragmentManager().findFragmentById(R.id.register_vehicle_entry);
+        return (VehicleEntryFragment) getFragmentManager().findFragmentById(R.id.register_vehicle_entry);
     }
 
     private void requestVehicleRegistration() {

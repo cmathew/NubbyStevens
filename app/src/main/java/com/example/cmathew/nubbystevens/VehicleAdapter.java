@@ -1,5 +1,6 @@
 package com.example.cmathew.nubbystevens;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -82,13 +83,13 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
-            EditVehicleFragment registerVehicleFragment = EditVehicleFragment.newInstance(vehicleId);
+            EditVehicleFragment editVehicleFragment = EditVehicleFragment.newInstance(vehicleId);
             FragmentManager fragmentManager = context.getSupportFragmentManager();
-            fragmentManager.beginTransaction()
+            FragmentTransaction transaction = fragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .add(android.R.id.content, registerVehicleFragment, "edit_vehicle")
-                    .addToBackStack(null)
-                    .commit();
+                    .addToBackStack(null);
+            editVehicleFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DealershipTheme);
+            editVehicleFragment.show(transaction, "edit_vehicle");
         }
     }
 
