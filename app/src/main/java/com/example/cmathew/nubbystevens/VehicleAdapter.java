@@ -29,6 +29,10 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHold
         this.cars = new ArrayList<>();
     }
 
+    public List<VehicleMinimal> getCars() {
+        return cars;
+    }
+
     public void setCars(List<VehicleMinimal> cars) {
         this.cars = cars;
     }

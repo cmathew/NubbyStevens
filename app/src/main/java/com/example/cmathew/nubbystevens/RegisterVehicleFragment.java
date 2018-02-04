@@ -186,7 +186,7 @@ public class RegisterVehicleFragment extends DialogFragment {
     }
 
     private void acknowledgeRegistration() {
-        Toast.makeText(getActivity(), "Vehicle Registered!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.register_vehicle_success, Toast.LENGTH_SHORT).show();
         dismiss();
     }
 

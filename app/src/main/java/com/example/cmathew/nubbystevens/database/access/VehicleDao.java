@@ -1,6 +1,7 @@
 package com.example.cmathew.nubbystevens.database.access;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.database.Cursor;
@@ -28,5 +29,8 @@ public interface VehicleDao {
 
     @Insert
     long insertVehicle(Vehicle vehicle);
+
+    @Query("DELETE FROM vehicle WHERE vehicle._id = :vehicleId")
+    void deleteVehicle(long vehicleId);
 }
 
