@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -157,6 +159,13 @@ public class EditVehicleFragment extends DialogFragment {
     private void acknowledgeChanges() {
         Toast.makeText(getActivity(), R.string.edit_vehicle_success, Toast.LENGTH_SHORT).show();
         dismiss();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

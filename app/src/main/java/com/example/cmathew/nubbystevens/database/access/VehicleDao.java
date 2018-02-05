@@ -28,6 +28,12 @@ public interface VehicleDao {
             "INNER JOIN vehicle_make as make ON make._id = model.make_id")
     Flowable<List<VehicleMinimal>> getAll();
 
+    @Query("SELECT vehicle._id as id, vehicle.production_year as productionYear, model.name as modelName, make.name as makeName FROM vehicle " +
+            "INNER JOIN vehicle_model as model ON model._id = vehicle.model_id " +
+            "INNER JOIN vehicle_make as make ON make._id = model.make_id " +
+            "WHERE makeName LIKE :query OR modelName LIKE :query OR production_year = :query")
+    Flowable<List<VehicleMinimal>> getBySearchTerm(String query);
+
     @Insert
     long insertVehicle(Vehicle vehicle);
 

@@ -6,6 +6,8 @@
     <string name="title_inventory">Inventory</string>
     <string name="title_add_inventory">Add Inventory</string>
     <string name="title_edit_inventory">Edit Inventory</string>
+    <string name="inventory_search_hint">Search Inventory</string>
+    <string name="menu_action_search_title">Search</string>
 
     <string name="vehicle_make_name_hint">Make (e.g. Honda)</string>
     <string name="vehicle_model_name_hint">Model (e.g. Civic)</string>
@@ -20,7 +22,4 @@
     <string name="remove_vehicle_success">Vehicle Removed.</string>
 
     <string name="error_required_field">This field is required.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

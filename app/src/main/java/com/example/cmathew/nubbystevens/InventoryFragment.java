@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewCompat;
@@ -99,6 +100,32 @@ public class InventoryFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(vehicleList);
 
         return listView;
+    }
+
+    public void setFilter(@NonNull String query) {
+        this.vehicleSub.dispose();
+
+        Flowable<List<VehicleMinimal>> obs = database.vehicleDao().getBySearchTerm(query).observeOn(AndroidSchedulers.mainThread());
+        this.vehicleSub = obs.subscribe(new Consumer<List<VehicleMinimal>>() {
+            @Override
+            public void accept(List<VehicleMinimal> vehicleMinimals) throws Exception {
+                vehicleAdapter.setCars(vehicleMinimals);
+                vehicleAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void removeFilter() {
+        this.vehicleSub.dispose();
+
+        Flowable<List<VehicleMinimal>> obs = database.vehicleDao().getAll().observeOn(AndroidSchedulers.mainThread());
+        this.vehicleSub = obs.subscribe(new Consumer<List<VehicleMinimal>>() {
+            @Override
+            public void accept(List<VehicleMinimal> vehicleMinimals) throws Exception {
+                vehicleAdapter.setCars(vehicleMinimals);
+                vehicleAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     //Remove swiped item from list and notify the RecyclerView
